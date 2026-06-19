@@ -6,6 +6,7 @@ import chromadb
 # PUBLISHED-ONLY allowlist — put your real live slugs here:
 SLUGS = [
     "squish",
+    "i-lacked-the-tools",
     # "the-job-was-never-coding",
     # "the-margin",
     # "without-a-compass",
