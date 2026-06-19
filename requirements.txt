@@ -1,1 +1,6 @@
- 
+sentence-transformers
+chromadb
+beautifulsoup4
+requests
+anthropic
+gradio
