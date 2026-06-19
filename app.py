@@ -69,8 +69,8 @@ def answer(question, request: gr.Request = None):
             messages=[{"role": "user", "content": f"Context excerpts:\n\n{context}\n\nQuestion: {question}"}],
         )
         return "".join(b.text for b in resp.content if b.type == "text")
-    except Exception:
-        return "The demo hit a snag on that one. Try again in a moment, or pick a suggested question."
+    except Exception as e:
+        return f"DEBUG: {type(e).__name__}: {e}"
 
 CSS = """
 .gradio-container { background: #0a0a0f; }
