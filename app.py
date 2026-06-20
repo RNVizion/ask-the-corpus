@@ -73,8 +73,19 @@ def answer(question, request: gr.Request = None):
         return "The demo hit a snag on that one. Try again in a moment, or pick a suggested question."
 
 CSS = """
-.gradio-container { background: #0a0a0f; }
+.gradio-container {
+    background: #0a0a0f;
+    --button-primary-background-fill: #d2bc93;
+    --button-primary-background-fill-hover: #c4ab7e;
+    --button-primary-text-color: #0a0a0f;
+    --button-primary-border-color: #d2bc93;
+}
 h1, h2 { color: #d2bc93 !important; }
+.gradio-container button.primary {
+    background: #d2bc93 !important;
+    color: #0a0a0f !important;
+    border-color: #d2bc93 !important;
+}
 """
 
 with gr.Blocks(css=CSS, title="Ask the Corpus") as demo:
