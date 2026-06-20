@@ -3,27 +3,29 @@ from bs4 import BeautifulSoup
 from sentence_transformers import SentenceTransformer
 import chromadb
 
-# PUBLISHED-ONLY allowlist — put your real live slugs here:
-SLUGS = [
-    "squish",
-    "i-lacked-the-tools",
-    # "the-job-was-never-coding",
-    # "the-margin",
-    # "without-a-compass",
+# PUBLISHED-ONLY sources — every entry is a live, public page on rnvizion.dev.
+# Drafts and local files never go in here; what's published is what the bot knows.
+# To add knowledge, publish the page first, then add its live URL below.
+SOURCES = [
+    {"id": "squish",                  "url": "https://rnvizion.dev/blog/squish/"},
+    {"id": "i-lacked-the-tools",      "url": "https://rnvizion.dev/blog/i-lacked-the-tools/"},
+    {"id": "the-job-was-never-coding","url": "https://rnvizion.dev/blog/the-job-was-never-coding/"},
+    {"id": "the-margin",              "url": "https://rnvizion.dev/blog/the-margin/"},
+    {"id": "bio",                     "url": "https://rnvizion.dev/bio/"},
+    # add more published pages here as they go live.
 ]
-BASE = "https://rnvizion.dev/blog/{}/"
 CHUNK_WORDS, OVERLAP = 300, 50
 
-def fetch_article(slug):
-    html = requests.get(BASE.format(slug), timeout=20).text
+def fetch_source(url):
+    html = requests.get(url, timeout=20).text
     soup = BeautifulSoup(html, "html.parser")
     article = soup.find("article")
     if not article:
-        raise ValueError(f"no <article> for {slug} — is it published?")
-    bio = article.find("div", class_="bio")
+        raise ValueError(f"no <article> at {url} — is it published?")
+    bio = article.find("div", class_="bio")   # strip the author blurb on blog posts
     if bio: bio.decompose()
     t = soup.find("meta", property="og:title")
-    title = t["content"] if t else slug
+    title = t["content"] if t else url
     return title, re.sub(r"\s+", " ", article.get_text(" ", strip=True))
 
 def chunk(text):
@@ -39,18 +41,19 @@ def main():
     except Exception: pass
     col = client.get_or_create_collection("corpus")
     total = 0
-    for slug in SLUGS:
-        title, text = fetch_article(slug)
+    for src in SOURCES:
+        sid, url = src["id"], src["url"]
+        title, text = fetch_source(url)
         chunks = list(chunk(text))
         col.add(
-            ids=[f"{slug}-{i}" for i in range(len(chunks))],
+            ids=[f"{sid}-{i}" for i in range(len(chunks))],
             embeddings=model.encode(chunks).tolist(),
             documents=chunks,
-            metadatas=[{"slug": slug, "title": title} for _ in chunks],
+            metadatas=[{"source": sid, "title": title} for _ in chunks],
         )
         total += len(chunks)
-        print(f"  {slug}: {len(chunks)} chunks ({title})")
-    print(f"done — {total} chunks from {len(SLUGS)} posts → ./chroma")
+        print(f"  {sid}: {len(chunks)} chunks ({title})")
+    print(f"done — {total} chunks from {len(SOURCES)} sources → ./chroma")
 
 if __name__ == "__main__":
     main()
