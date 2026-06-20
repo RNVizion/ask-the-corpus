@@ -14,16 +14,18 @@ MAX_TOKENS = 400                # caps answer length, so each call's cost is bou
 RATE = {"per_min": 6, "per_day": 60}
 
 SYSTEM = (
-    "You answer questions about the personal blog of Christian 'RNVizion' Smith. "
-    "Use ONLY the context excerpts provided. If they don't contain the answer, say plainly "
-    "that the blog doesn't cover that yet — never use outside knowledge or guess. "
-    "Keep it concise, and name the post(s) your answer draws from."
+    "You answer questions about the published work of Christian 'RNVizion' Smith — his "
+    "blog posts and his profile. Use ONLY the context excerpts provided. If they don't "
+    "contain the answer, say plainly that his published work doesn't cover that yet — "
+    "never use outside knowledge or guess. Keep it concise, and name the source(s) your "
+    "answer draws from."
 )
 
 SUGGESTED = [
     "What is squish?",
     "Why was a developer's job never really the code?",
     "What does constraint have to do with creativity?",
+    "What kind of roles is Christian looking for?",
 ]
 
 # ---- load the prebuilt index + embedder once ----
@@ -46,7 +48,7 @@ def _rate_ok(key):
 def answer(question, request: gr.Request = None):
     question = (question or "").strip()
     if not question:
-        return "Ask me something about the blog."
+        return "Ask me something about Christian's work."
     if len(question) > MAX_INPUT:
         return f"Please keep your question under {MAX_INPUT} characters."
     key = request.client.host if request and request.client else "local"
@@ -60,8 +62,8 @@ def answer(question, request: gr.Request = None):
         )
         docs, metas = res["documents"][0], res["metadatas"][0]
         if not docs:
-            return "I don't have anything on that in the blog yet."
-        context = "\n\n".join(f"[Post: {m.get('title', '?')}]\n{d}" for d, m in zip(docs, metas))
+            return "I don't have anything on that in Christian's published work yet."
+        context = "\n\n".join(f"[Source: {m.get('title', '?')}]\n{d}" for d, m in zip(docs, metas))
         resp = llm.messages.create(
             model=MODEL,
             max_tokens=MAX_TOKENS,
@@ -90,7 +92,7 @@ h1, h2 { color: #d2bc93 !important; }
 
 with gr.Blocks(css=CSS, title="Ask the Corpus") as demo:
     gr.Markdown("# Ask the Corpus")
-    gr.Markdown("Ask a question about Christian Smith's writing. Answers come only from the published posts — if it's not in the blog, it says so.")
+    gr.Markdown("Ask a question about Christian Smith's work. Answers come only from published work on rnvizion.dev — his writing and his profile — and if it's not there, it says so.")
     inp = gr.Textbox(label="Your question", placeholder="What is squish?", lines=2, max_lines=4)
     btn = gr.Button("Ask", variant="primary")
     out = gr.Markdown()
