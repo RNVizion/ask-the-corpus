@@ -92,7 +92,7 @@ h1, h2 { color: #d2bc93 !important; }
 
 with gr.Blocks(css=CSS, title="Ask the Corpus") as demo:
     gr.Markdown("# Ask the Corpus")
-    gr.Markdown("Ask a question about Christian Smith's work. Answers come only from published work on rnvizion.dev — his writing and his profile — and if it's not there, it says so.")
+    gr.Markdown("Ask a question about Christian Smith's work. Answers come only from his published work on rnvizion.dev: his writing and his profile. If it's not there, it says so.")
     inp = gr.Textbox(label="Your question", placeholder="What is squish?", lines=2, max_lines=4)
     btn = gr.Button("Ask", variant="primary")
     out = gr.Markdown()

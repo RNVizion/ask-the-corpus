@@ -12,6 +12,7 @@ SOURCES = [
     {"id": "the-job-was-never-coding","url": "https://rnvizion.dev/blog/the-job-was-never-coding/"},
     {"id": "the-margin",              "url": "https://rnvizion.dev/blog/the-margin/"},
     {"id": "bio",                     "url": "https://rnvizion.dev/bio/"},
+    {"id": "resume",                   "url": "https://rnvizion.dev/resume/"},
     # add more published pages here as they go live.
 ]
 CHUNK_WORDS, OVERLAP = 300, 50
