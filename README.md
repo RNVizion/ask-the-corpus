@@ -6,6 +6,14 @@ A retrieval-augmented (RAG) chatbot that answers questions about Christian “RN
 
 -----
 
+## Demo
+
+<video src="https://raw.githubusercontent.com/RNVizion/ask-the-corpus/main/assets/ask-the-corpus-demo.mp4" controls width="320"></video>
+
+A 30-second walkthrough: ask a question, get a grounded answer with the post it came from, then watch it decline something the blog never covered. Honesty is the design goal, not an afterthought.
+
+-----
+
 ## What it does
 
 Ask it anything about the blog. It retrieves the most relevant passages from the published posts, hands them to Claude, and answers *only* from that context. Ask it something the blog doesn’t cover (the capital of China, say) and it tells you so instead of guessing.
@@ -73,6 +81,7 @@ ingest.py          # published-only ingester -> ChromaDB
 app.py             # retrieval + Claude + Gradio UI
 requirements.txt
 chroma/            # prebuilt vector index (committed)
+assets/            # demo clip and screenshots
 ```
 
 ## Design note: why published-only
