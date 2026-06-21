@@ -8,7 +8,8 @@ A retrieval-augmented (RAG) chatbot that answers questions about Christian “RN
 
 ## Demo
 
-[![Ask the Corpus demo](assets/ask-the-corpus.png)](https://github.com/user-attachments/assets/066cea53-bc46-4988-82ea-d728704dce1e)
+[![Ask the Corpus demo](assets/ask-the-corpus.png)]
+<https://github.com/user-attachments/assets/066cea53-bc46-4988-82ea-d728704dce1e)>
 
 A 30-second walkthrough: ask a question, get a grounded answer with the post it came from, then watch it decline something the blog never covered. Honesty is the design goal, not an afterthought.
 
