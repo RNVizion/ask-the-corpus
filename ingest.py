@@ -25,7 +25,7 @@ def load_sources():
 
 def fetch_source(url):
     """Fetch and clean a source page. Returns (title, text).
-    Raises SkipSource if the page is missing, errored, or not a published post."""
+    Raises SkipSource if the page is missing, errored, or has no readable content."""
     try:
         resp = requests.get(url, timeout=20)
     except requests.RequestException as e:
@@ -33,15 +33,25 @@ def fetch_source(url):
     if resp.status_code != 200:
         raise SkipSource(f"HTTP {resp.status_code}")
     soup = BeautifulSoup(resp.text, "html.parser")
-    article = soup.find("article")
-    if not article:
-        raise SkipSource("no <article> (page not published?)")
-    bio = article.find("div", class_="bio")  # strip the author blurb on blog posts
+
+    # Prefer <article> (blog posts); fall back to <main>, then <body>, so non-post
+    # pages (résumé, bio, future pages) are ingestible without bending their HTML.
+    container = soup.find("article") or soup.find("main") or soup.body
+    if container is None:
+        raise SkipSource("no readable content")
+    # When we fall through to <main>/<body>, drop site chrome so the menu and
+    # boilerplate don't pollute the chunks. (An <article> rarely holds these, so
+    # this is a safe no-op for posts. <header> is left alone — it can carry a
+    # page's title/intro, and the nav already lives in <nav>.)
+    for tag in container.select("nav, footer, script, style"):
+        tag.decompose()
+    bio = container.find("div", class_="bio")  # author blurb on blog posts
     if bio:
         bio.decompose()
+
     t = soup.find("meta", property="og:title")
     title = t["content"] if t else url
-    return title, re.sub(r"\s+", " ", article.get_text(" ", strip=True))
+    return title, re.sub(r"\s+", " ", container.get_text(" ", strip=True))
 
 
 def chunk(text):
