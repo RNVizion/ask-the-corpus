@@ -1,0 +1,40 @@
+name: Rebuild corpus
+
+# Re-ingest the RAG and push the vector store to the Hugging Face Space whenever
+# the source list (or the ingester) changes, or on a manual run. This keeps the
+# heavy ML deps and the HF token in CI, out of the publishing agent's environment.
+on:
+  push:
+    paths:
+      - "sources.json"
+      - "ingest.py"
+  workflow_dispatch:
+
+# Avoid overlapping rebuilds if several pushes land close together.
+concurrency:
+  group: rebuild-corpus
+  cancel-in-progress: true
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -U "huggingface_hub[cli]"
+
+      - name: Rebuild Chroma from the live sources
+        run: python ingest.py
+
+      - name: Push the vector store to the Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}   # add this in repo Settings → Secrets → Actions
+        run: hf upload RNVizion/ask-the-corpus chroma chroma --repo-type=space
