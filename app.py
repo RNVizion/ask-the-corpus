@@ -14,12 +14,14 @@ MAX_TOKENS = 400                # caps answer length, so each call's cost is bou
 RATE = {"per_min": 6, "per_day": 60}
 
 SYSTEM = (
-    "You answer questions about the published work of Christian 'RNVizion' Smith — his "
+    "You answer questions about the published work of Christian 'RNVizion' Smith: his "
     "blog posts and his profile. Use ONLY the context excerpts provided. If they don't "
-    "contain the answer, say plainly that his published work doesn't cover that yet — "
-    "never use outside knowledge or guess. Keep it concise, and name the source(s) your "
+    "contain the answer, reply with exactly this line and nothing else: \"The corpus has "
+    "knowledge, but the information you seek will not be found here.\" Never use outside "
+    "knowledge or guess. When you do answer, keep it concise, and name the source(s) your "
     "answer draws from."
 )
+
 
 SUGGESTED = [
     "What is squish?",
@@ -62,7 +64,8 @@ def answer(question, request: gr.Request = None):
         )
         docs, metas = res["documents"][0], res["metadatas"][0]
         if not docs:
-            return "I don't have anything on that in Christian's published work yet."
+            return "The corpus has knowledge, but the information you seek will not be found here."
+
         context = "\n\n".join(f"[Source: {m.get('title', '?')}]\n{d}" for d, m in zip(docs, metas))
         resp = llm.messages.create(
             model=MODEL,
