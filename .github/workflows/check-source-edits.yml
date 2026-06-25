@@ -1,0 +1,51 @@
+name: Rebuild corpus on source edits
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # every 6 hours; tighten or loosen as you like
+  workflow_dispatch:          # manual "Run workflow" button
+
+permissions:
+  contents: write             # to commit the updated hash file back
+
+concurrency:
+  group: corpus-rebuild       # give rebuild-corpus.yml the same group to fully serialize
+  cancel-in-progress: false
+
+jobs:
+  check-and-rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout corpus repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check tracked sources for edits
+        id: check
+        run: python check_edits.py
+
+      - name: Re-ingest (only if a source changed)
+        if: steps.check.outputs.changed == 'true'
+        run: python ingest.py
+
+      - name: Push fresh index to the Space
+        if: steps.check.outputs.changed == 'true'
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: hf upload RNVizion/ask-the-corpus chroma chroma --repo-type=space
+
+      - name: Commit updated hashes
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .source-hashes.json
+          git commit -m "corpus: refresh after source edit (${{ steps.check.outputs.summary }})" || echo "nothing to commit"
+          git push
