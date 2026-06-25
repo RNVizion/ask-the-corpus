@@ -39,14 +39,14 @@ def main():
     for src in load_sources():
         sid, url = src["id"], src["url"]
         try:
-            _, text = fetch_source(url)
+            title, text = fetch_source(url)
         except SkipSource as e:
             # A temporarily-down page shouldn't force a rebuild; keep its old hash.
             print(f"SKIP {sid}: {e}")
             if sid in old:
                 new[sid] = old[sid]
             continue
-        h = text_hash(text)
+        h = text_hash(f"{title}\n{text}")
         new[sid] = h
         if old.get(sid) != h:
             changed.append(sid)
