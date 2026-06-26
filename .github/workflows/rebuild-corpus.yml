@@ -36,5 +36,5 @@ jobs:
 
       - name: Push the vector store to the Space
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}   # add this in repo Settings → Secrets → Actions
+          HF_TOKEN: ${{ secrets.CORPUS_CI }}   # add this in repo Settings → Secrets → Actions
         run: hf upload RNVizion/ask-the-corpus chroma chroma --repo-type=space
