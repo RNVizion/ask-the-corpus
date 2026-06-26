@@ -38,7 +38,7 @@ jobs:
       - name: Push fresh index to the Space
         if: steps.check.outputs.changed == 'true'
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_TOKEN: ${{ secrets.CORPUS_CI }}
         run: hf upload RNVizion/ask-the-corpus chroma chroma --repo-type=space
 
       - name: Commit updated hashes
