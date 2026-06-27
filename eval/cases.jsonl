@@ -1,31 +1,29 @@
 {"id": "squish-def",        "kind": "in_corpus",     "question": "What is squish?",                                                  "expect_source": "squish",            "keywords": ["feel", "soul", "weight"]}
-{"id": "squish-origin",     "kind": "in_corpus",     "question": "Where did Christian first learn the word squish?",                  "expect_source": "squish",            "keywords": ["Dave", "class"]}
+{"id": "squish-origin",     "kind": "in_corpus",     "question": "Where did Christian first learn the word squish?",                  "expect_source": "squish",            "keywords": ["Dave", "classroom"]}
 {"id": "squish-mario",      "kind": "in_corpus",     "question": "How does Mario illustrate squish?",                                "expect_source": "squish",            "keywords": ["jump", "gravity", "fall"]}
-{"id": "squish-ai",         "kind": "in_corpus",     "question": "Does AI remove squish or make room for it?",                       "expect_source": "squish",            "keywords": ["time"]}
-{"id": "squish-loved",      "kind": "in_corpus",     "question": "What is the difference between software that works and software that is loved?", "expect_source": "squish", "keywords": ["love", "feel"]}
+{"id": "squish-ai",         "kind": "in_corpus",     "question": "Does AI take squish away or make room for it?",                    "expect_source": "squish",            "keywords": ["time"]}
+{"id": "squish-loved",      "kind": "in_corpus",     "question": "What turns software that merely works into software people love?", "expect_source": "squish",            "keywords": ["love", "feel"]}
 {"id": "squish-hollow",     "kind": "in_corpus",     "question": "What does Christian mean when he calls software hollow?",           "expect_source": "squish",            "keywords": ["hollow"]}
 
 {"id": "sloth-leverage",    "kind": "in_corpus",     "question": "What does lazy in the right way is leverage mean?",                "expect_source": "sloth",             "keywords": ["leverage", "effort"]}
-{"id": "sloth-strength",    "kind": "in_corpus",     "question": "How can laziness be a strength?",                                  "expect_source": "sloth",             "keywords": ["effort", "leverage", "efficien"]}
-{"id": "sloth-economy",     "kind": "in_corpus",     "question": "What does strategic economy of effort mean?",                      "expect_source": "sloth",             "keywords": ["effort"]}
+{"id": "sloth-two-kinds",   "kind": "in_corpus",     "question": "What are the two ways to be lazy about a repetitive chore?",        "expect_source": "sloth",             "keywords": ["future", "present"]}
+{"id": "sloth-machine",     "kind": "in_corpus",     "question": "What did Christian's publishing machine do when a post was broken?", "expect_source": "sloth",            "keywords": ["refused", "ship"]}
+{"id": "sloth-strength",    "kind": "in_corpus",     "question": "How does aiming laziness at the future become leverage?",          "expect_source": "sloth",             "keywords": ["leverage", "effort", "future"]}
 {"id": "sloth-general",     "kind": "in_corpus",     "question": "What is the upside of doing less on purpose?",                     "expect_source": "sloth",             "keywords": []}
 
 {"id": "tools-resources",   "kind": "in_corpus",     "question": "What does resources are the enemy of imagination mean?",           "expect_source": "i-lacked-the-tools", "keywords": ["imagination", "resource"]}
-{"id": "tools-circles",     "kind": "in_corpus",     "question": "How did Christian make circles without a compass for his cosplay?", "expect_source": "i-lacked-the-tools", "keywords": ["circle", "cylinder", "compass"]}
-{"id": "tools-constraint",  "kind": "in_corpus",     "question": "What is the relationship between constraint and creativity?",       "expect_source": "i-lacked-the-tools", "keywords": ["limit", "imagination", "constraint"]}
-{"id": "tools-instead",     "kind": "in_corpus",     "question": "What did Christian use instead of a compass?",                     "expect_source": "i-lacked-the-tools", "keywords": ["ruler", "formula"]}
-{"id": "tools-plan",        "kind": "in_corpus",     "question": "What does Christian say about planning before the resources arrive?", "expect_source": "i-lacked-the-tools", "keywords": ["plan", "scale", "blueprint"]}
-{"id": "tools-compass-buy", "kind": "in_corpus",     "question": "Did Christian eventually buy a compass?",                          "expect_source": "i-lacked-the-tools", "keywords": ["bought", "after"]}
+{"id": "tools-constraint",  "kind": "in_corpus",     "question": "How does Christian describe constraint as a creative force?",       "expect_source": "i-lacked-the-tools", "keywords": ["constraint", "creative"]}
+{"id": "tools-suite",       "kind": "in_corpus",     "question": "How did Christian end up building a whole software suite?",         "expect_source": "i-lacked-the-tools", "keywords": ["suite", "color", "tool"]}
 
-{"id": "bio-renaissance",   "kind": "in_corpus",     "question": "What does renaissance man mean for Christian?",                    "expect_source": ["bio", "resume"],   "keywords": ["renaissance"]}
-{"id": "bio-pillars",       "kind": "in_corpus",     "question": "What are Christian's creative pillars?",                           "expect_source": "bio",               "keywords": ["development", "fashion", "philosophy", "making"]}
+{"id": "bio-renaissance",   "kind": "in_corpus",     "question": "What does renaissance man mean for Christian?",                    "expect_source": ["bio", "i-lacked-the-tools"], "keywords": ["renaissance"]}
+{"id": "bio-fields",        "kind": "in_corpus",     "question": "What fields does Christian work across as a renaissance man?",     "expect_source": "bio",               "keywords": ["development", "writing", "design", "making"]}
 {"id": "bio-meta",          "kind": "in_corpus",     "question": "Where does Christian work?",                                       "expect_source": ["bio", "resume"],   "keywords": ["Meta"]}
 
-{"id": "res-roles",         "kind": "in_corpus",     "question": "What kind of roles is Christian looking for?",                     "expect_source": "resume",            "keywords": ["Solutions Engineer", "Developer Advocate", "AI"]}
-{"id": "res-mcp",           "kind": "in_corpus",     "question": "What is rnv-color-mcp?",                                           "expect_source": "resume",            "keywords": ["MCP", "color"]}
-{"id": "res-count",         "kind": "in_corpus",     "question": "How many projects has Christian shipped?",                         "expect_source": ["resume", "bio"],   "keywords": ["eight", "8"]}
-{"id": "res-ai",            "kind": "in_corpus",     "question": "What AI systems has Christian built?",                             "expect_source": "resume",            "keywords": ["RAG", "Corpus", "MCP"]}
-{"id": "res-testing",       "kind": "in_corpus",     "question": "What testing does Christian use?",                                 "expect_source": "resume",            "keywords": ["pytest", "test"]}
+{"id": "res-roles",         "kind": "in_corpus",     "question": "What kind of roles is Christian looking for?",                     "expect_source": ["resume", "bio"],   "keywords": ["Solutions Engineer", "Developer Advocate", "AI Engineer"]}
+{"id": "res-mcp",           "kind": "in_corpus",     "question": "What is rnv-color-mcp?",                                           "expect_source": ["resume", "bio"],   "keywords": ["MCP", "color"]}
+{"id": "res-ai",            "kind": "in_corpus",     "question": "What AI systems has Christian built?",                             "expect_source": ["resume", "bio"],   "keywords": ["RAG", "Corpus", "MCP"]}
+{"id": "res-count",         "kind": "in_corpus",     "question": "How many projects has Christian shipped?",                         "expect_source": "resume",            "keywords": ["eight"]}
+{"id": "res-testing",       "kind": "in_corpus",     "question": "What testing tools does Christian use?",                           "expect_source": ["resume", "bio"],   "keywords": ["pytest", "test"]}
 
 {"id": "ooc-china",         "kind": "out_of_corpus", "question": "What is the capital of China?"}
 {"id": "ooc-superbowl",     "kind": "out_of_corpus", "question": "Who won the Super Bowl this year?"}
@@ -37,10 +35,12 @@
 {"id": "ooc-recipe",        "kind": "out_of_corpus", "question": "What is a good recipe for carbonara?"}
 {"id": "ooc-french",        "kind": "out_of_corpus", "question": "Translate hello into French."}
 
-{"id": "trap-margin",       "kind": "out_of_corpus", "question": "What is the thesis of The Margin, Not the Price?", "note": "PENDING post, not in live corpus per sources.json. Flip to in_corpus once deployed."}
-{"id": "trap-job-coding",   "kind": "out_of_corpus", "question": "Summarize The Job Was Never Coding.",            "note": "PENDING post, not in live corpus. Flip to in_corpus once deployed."}
-{"id": "trap-fiction",      "kind": "out_of_corpus", "question": "What horror novels has Christian written?",       "note": "Fiction is kept off rnvizion.dev by design; verify against current corpus."}
+{"id": "trap-margin",       "kind": "out_of_corpus", "question": "What is the thesis of \"The Margin, Not the Price\"?", "note": "PENDING post, not in live corpus per sources.json. Flip to in_corpus once deployed."}
+{"id": "trap-job-coding",   "kind": "out_of_corpus", "question": "Summarize \"The Job Was Never Coding.\"",            "note": "PENDING post, not in live corpus. Flip to in_corpus once deployed."}
+{"id": "trap-compass",      "kind": "out_of_corpus", "question": "How did Christian make circles without a compass for his cosplay?", "note": "From the UNPUBLISHED 'Without a Compass' essay; the live i-lacked-the-tools post is the software-suite story. Refusal is correct."}
+{"id": "trap-instagram",    "kind": "out_of_corpus", "question": "How many Instagram followers does Christian have?", "note": "Lives in the IG playbook, never on the site. Refusal is correct."}
 {"id": "trap-address",      "kind": "out_of_corpus", "question": "What is Christian's home address?"}
 {"id": "trap-salary",       "kind": "out_of_corpus", "question": "What is Christian's salary at Meta?"}
-{"id": "trap-grad",         "kind": "out_of_corpus", "question": "What did Christian study in graduate school?",     "note": "He holds a BS; grad school is not covered, so a refusal is correct."}
+{"id": "trap-gpa",          "kind": "out_of_corpus", "question": "What was Christian's GPA?"}
 {"id": "trap-dislike",      "kind": "out_of_corpus", "question": "What programming languages does Christian dislike?"}
+{"id": "trap-manager",      "kind": "out_of_corpus", "question": "Who is Christian's manager at Meta?"}
