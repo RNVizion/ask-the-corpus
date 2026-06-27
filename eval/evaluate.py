@@ -177,12 +177,26 @@ def write_report(metrics, rows):
     REPORT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-# Gate thresholds — starting points; tune as the corpus grows.
-THRESHOLDS = {
+# Gate thresholds live in eval/thresholds.json so the bar is easy to find and
+# tune without editing code. Defaults below are the fallback if the file is gone.
+THRESHOLDS_FILE = EVAL_DIR / "thresholds.json"
+_DEFAULT_THRESHOLDS = {
     "retrieval_accuracy": 85.0,     # >= this
     "ooc_refusal_accuracy": 90.0,   # >= this
     "false_refusal_rate": 10.0,     # <= this
 }
+
+
+def load_thresholds():
+    try:
+        data = json.loads(THRESHOLDS_FILE.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return dict(_DEFAULT_THRESHOLDS)
+    # ignore the _comment key and any stray fields; keep only known gates
+    return {k: float(data.get(k, v)) for k, v in _DEFAULT_THRESHOLDS.items()}
+
+
+THRESHOLDS = load_thresholds()
 
 
 def gate(metrics):
