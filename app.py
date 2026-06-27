@@ -93,7 +93,7 @@ h1, h2 { color: #d2bc93 !important; }
 }
 """
 
-with gr.Blocks(css=CSS, title="Ask the Corpus") as demo:
+with gr.Blocks(title="Ask the Corpus") as demo:
     gr.Markdown("# Ask the Corpus")
     gr.Markdown("Ask a question about Christian Smith's work. Answers come only from his published work on rnvizion.dev: his writing and his profile. If it's not there, it says so.")
     inp = gr.Textbox(label="Your question", placeholder="What is squish?", lines=2, max_lines=4)
@@ -104,4 +104,4 @@ with gr.Blocks(css=CSS, title="Ask the Corpus") as demo:
     inp.submit(answer, inputs=inp, outputs=out)
 
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0", server_port=7860)
+    demo.launch(css=CSS,server_name="0.0.0.0", server_port=7860)
