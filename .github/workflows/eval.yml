@@ -38,12 +38,12 @@ jobs:
 
       - name: Run eval report
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.EVAL_KEY }}
         run: python eval/evaluate.py --report-only
 
       - name: Gate on thresholds
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.CORPUS_CI }}
+          ANTHROPIC_API_KEY: ${{ secrets.EVAL_KEY }}
         run: pytest eval/test_eval.py -v
 
       - name: Upload eval report
