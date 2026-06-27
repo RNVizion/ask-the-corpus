@@ -29,4 +29,4 @@ It runs from the repo root because `app.py` opens `chroma/` by relative path. Th
 
 ## Thresholds
 
-Starting points in `evaluate.py` (`THRESHOLDS`): retrieval ≥ 85%, out-of-corpus refusal ≥ 90%, false-refusal ≤ 10%. Tune as the corpus grows.
+The gate lives in `eval/thresholds.json`: retrieval ≥ 85%, out-of-corpus refusal ≥ 90%, false-refusal ≤ 10%. Edit that file to tune the bar; `evaluate.py` and the CI pytest both read it (and fall back to the same defaults if it's missing). Raise the bar as the corpus grows.
