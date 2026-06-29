@@ -23,8 +23,15 @@ def load_sources():
     return data.get("sources", [])
 
 
-def fetch_source(url):
+def fetch_source(url, scope="article"):
     """Fetch and clean a source page. Returns (title, text).
+
+    scope="article" (default): prefer <article>, then <main>, then <body>. Right
+    for blog posts, where the surrounding site chrome is noise.
+    scope="full": ingest the whole <body>. Use for pages whose content spans
+    several top-level sections (the AIII page, landing pages) where an
+    <article>/<main> slice would miss part of it.
+
     Raises SkipSource if the page is missing, errored, or has no readable content."""
     try:
         resp = requests.get(url, timeout=20)
@@ -34,16 +41,20 @@ def fetch_source(url):
         raise SkipSource(f"HTTP {resp.status_code}")
     soup = BeautifulSoup(resp.text, "html.parser")
 
-    # Prefer <article> (blog posts); fall back to <main>, then <body>, so non-post
-    # pages (résumé, bio, future pages) are ingestible without bending their HTML.
-    container = soup.find("article") or soup.find("main") or soup.body
+    # Container + which chrome to strip depends on scope.
+    if scope == "full":
+        # The whole page: keep <header>, <footer>, and every section. Drop only
+        # the repeated site menu and non-content tags, so "totality" doesn't mean
+        # re-ingesting the same nav boilerplate that sits on every page.
+        container = soup.body
+        chrome = "nav, script, style"
+    else:
+        container = soup.find("article") or soup.find("main") or soup.body
+        chrome = "nav, footer, script, style"
     if container is None:
         raise SkipSource("no readable content")
-    # When we fall through to <main>/<body>, drop site chrome so the menu and
-    # boilerplate don't pollute the chunks. (An <article> rarely holds these, so
-    # this is a safe no-op for posts. <header> is left alone — it can carry a
-    # page's title/intro, and the nav already lives in <nav>.)
-    for tag in container.select("nav, footer, script, style"):
+
+    for tag in container.select(chrome):
         tag.decompose()
     bio = container.find("div", class_="bio")  # author blurb on blog posts
     if bio:
@@ -80,7 +91,7 @@ def main():
     for src in sources:
         sid, url = src["id"], src["url"]
         try:
-            title, text = fetch_source(url)
+            title, text = fetch_source(url, src.get("scope", "article"))
         except SkipSource as why:
             skipped.append((sid, str(why)))
             print(f"  SKIP {sid}: {why}  ({url})")
