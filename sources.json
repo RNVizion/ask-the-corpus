@@ -5,6 +5,7 @@
     { "id": "i-lacked-the-tools", "url": "https://rnvizion.dev/blog/i-lacked-the-tools/" },
     { "id": "bio",                "url": "https://rnvizion.dev/bio/" },
     { "id": "resume",             "url": "https://rnvizion.dev/resume/" }
+    { "id": "aiii",               "url": "https://rnvizion.dev/aiii/" }
   ],
 
   "_comment": "Only live, published URLs belong in 'sources'. The ingester ignores everything below. When a pending page is deployed and returns 200, move its entry up into 'sources'.",
