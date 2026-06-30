@@ -74,6 +74,8 @@ The index is committed, so you can skip `ingest.py` and run `app.py` straight aw
 
 The live demo runs on Hugging Face Spaces. `app.py`, `requirements.txt`, and the prebuilt `chroma/` index are uploaded to the Space; the Anthropic key is set as a Space secret (`ANTHROPIC_API_KEY`). The Space rebuilds on upload.
 
+The live index also stays current on its own: a scheduled GitHub Action in this repo discovers newly published posts from the site’s feed and re-ingests when a tracked page changes, then pushes the refreshed index to the Space — running `ingest.py` by hand is only for local work.
+
 ## Repo layout
 
 ```
