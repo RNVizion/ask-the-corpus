@@ -1,18 +1,49 @@
 {
   "sources": [
-    { "id": "home",               "url": "https://rnvizion.dev/", "scope": "full" },
-    { "id": "squish",             "url": "https://rnvizion.dev/blog/squish/" },
-    { "id": "sloth",              "url": "https://rnvizion.dev/blog/sloth/" },
-    { "id": "i-lacked-the-tools", "url": "https://rnvizion.dev/blog/i-lacked-the-tools/" },
-    { "id": "bio",                "url": "https://rnvizion.dev/bio/" },
-    { "id": "resume",             "url": "https://rnvizion.dev/resume/" },
-    { "id": "aiii",               "url": "https://rnvizion.dev/aiii/", "scope": "full" }
+    {
+      "id": "home",
+      "url": "https://rnvizion.dev/",
+      "scope": "full"
+    },
+    {
+      "id": "squish",
+      "url": "https://rnvizion.dev/blog/squish/"
+    },
+    {
+      "id": "sloth",
+      "url": "https://rnvizion.dev/blog/sloth/"
+    },
+    {
+      "id": "i-lacked-the-tools",
+      "url": "https://rnvizion.dev/blog/i-lacked-the-tools/"
+    },
+    {
+      "id": "bio",
+      "url": "https://rnvizion.dev/bio/"
+    },
+    {
+      "id": "resume",
+      "url": "https://rnvizion.dev/resume/"
+    },
+    {
+      "id": "aiii",
+      "url": "https://rnvizion.dev/aiii/",
+      "scope": "full"
+    },
+    {
+      "id": "ask-the-corpus",
+      "url": "https://rnvizion.dev/blog/ask-the-corpus/"
+    }
   ],
-
   "_comment": "Only live, published URLs belong in 'sources'. The ingester ignores everything below. When a pending page is deployed and returns 200, move its entry up into 'sources'.",
-
   "_pending_not_yet_deployed": [
-    { "id": "the-job-was-never-coding", "url": "https://rnvizion.dev/blog/the-job-was-never-coding/" },
-    { "id": "the-margin",               "url": "https://rnvizion.dev/blog/the-margin/" }
+    {
+      "id": "the-job-was-never-coding",
+      "url": "https://rnvizion.dev/blog/the-job-was-never-coding/"
+    },
+    {
+      "id": "the-margin",
+      "url": "https://rnvizion.dev/blog/the-margin/"
+    }
   ]
 }
