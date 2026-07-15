@@ -33,6 +33,10 @@
     {
       "id": "ask-the-corpus",
       "url": "https://rnvizion.dev/blog/ask-the-corpus/"
+    },
+    {
+      "id": "the-job-was-never-coding",
+      "url": "https://rnvizion.dev/blog/the-job-was-never-coding/"
     }
   ],
   "_comment": "Only live, published URLs belong in 'sources'. The ingester ignores everything below. When a pending page is deployed and returns 200, move its entry up into 'sources'.",
