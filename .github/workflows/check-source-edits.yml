@@ -38,11 +38,27 @@ jobs:
         if: steps.check.outputs.changed == 'true'
         run: python ingest.py
 
+      # Quirk to NOT "fix": this uploads through the Python API, not `hf upload`.
+      # The CLI hardcodes create_repo(space_sdk="gradio") on every --repo-type=space
+      # upload; HF's July 2026 free-tier gate 402s that call before exist_ok is ever
+      # checked. upload_folder() never calls create_repo, so it commits straight to
+      # the existing Space. Reverting this to the CLI re-breaks the workflow.
       - name: Push fresh index to the Space
         if: steps.check.outputs.changed == 'true'
         env:
           HF_TOKEN: ${{ secrets.CORPUS_CI }}
-        run: hf upload RNVizion/ask-the-corpus chroma chroma --repo-type=space
+        run: |
+          python - <<'PY'
+          import os
+          from huggingface_hub import HfApi
+          HfApi(token=os.environ["HF_TOKEN"]).upload_folder(
+              repo_id="RNVizion/ask-the-corpus",
+              repo_type="space",
+              folder_path="chroma",
+              path_in_repo="chroma",
+          )
+          print("uploaded chroma/ to Space")
+          PY
 
       - name: Commit updated hashes
         if: steps.check.outputs.changed == 'true'
