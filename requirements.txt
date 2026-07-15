@@ -4,3 +4,4 @@ beautifulsoup4
 requests
 anthropic
 gradio
+huggingface_hub
