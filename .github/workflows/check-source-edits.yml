@@ -8,8 +8,10 @@ on:
 permissions:
   contents: write             # to commit the updated hash file back
 
+# Shares its group with rebuild-corpus.yml so the two corpus workflows
+# fully serialize. cancel-in-progress stays false on BOTH.
 concurrency:
-  group: corpus-rebuild       # give rebuild-corpus.yml the same group to fully serialize
+  group: corpus-rebuild
   cancel-in-progress: false
 
 jobs:
@@ -17,12 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout corpus repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
+          python-version: "3.12"
+          cache: pip
 
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -38,11 +41,8 @@ jobs:
         if: steps.check.outputs.changed == 'true'
         run: python ingest.py
 
-      # Quirk to NOT "fix": this uploads through the Python API, not `hf upload`.
-      # The CLI hardcodes create_repo(space_sdk="gradio") on every --repo-type=space
-      # upload; HF's July 2026 free-tier gate 402s that call before exist_ok is ever
-      # checked. upload_folder() never calls create_repo, so it commits straight to
-      # the existing Space. Reverting this to the CLI re-breaks the workflow.
+      # Quirk to NOT "fix": Python API, not `hf upload` — see rebuild-corpus.yml
+      # for the full note. The CLI 402s on free accounts; upload_folder doesn't.
       - name: Push fresh index to the Space
         if: steps.check.outputs.changed == 'true'
         env:
@@ -68,3 +68,4 @@ jobs:
           git add sources.json .source-hashes.json
           git commit -m "corpus: refresh after source change (${{ steps.check.outputs.summary }})" || echo "nothing to commit"
           git push
+
